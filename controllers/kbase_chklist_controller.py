@@ -33,9 +33,12 @@ class KbaseChkListController:
         # Initialize connection to OpenAI platform
         openai_client = OpenAiClient()
 
+        # Note: Modify the CONTEXT and PROMPT parameters to be used in the PoC
+        data_context = "You are a web developer and you need to see the benefits of using DAM solutions"
+        data_prompt  = "Can you provide the summary of Cloudinary as DAM service provider"
         openai_response_data = openai_client.send_prompt(
-                context="What is the current weather",
-                prompt="I am in Singapore"
+                context=data_context,
+                prompt=data_prompt
             )        
         
         return {
@@ -60,7 +63,9 @@ class KbaseChkListController:
         zendesk_api_client = ZendeskClient(**zendesk_config)
 
         # Fetch ticket properties from Zendesk API
-        ticket_properties = zendesk_api_client.ticket_show(ticket_id="333361")
+        # Use the ticket to be used of the PoC
+        ticket_id_ref = "333361"
+        ticket_properties = zendesk_api_client.ticket_show(ticket_id=ticket_id_ref)
         
         return {
             "Zendesk-Response": ticket_properties
