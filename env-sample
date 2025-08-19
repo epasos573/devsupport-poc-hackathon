@@ -1,0 +1,14 @@
+APP_PORT=8080
+LOG_FILE=app.log
+CRON_MINUTE=*/2   # run every 2 minutes
+
+
+OPENAI_TOKEN="your-openai-token-here"
+
+ZENDESK_CLIENT_URL="https://cloudinary.zendesk.com"
+ZENDESK_CLIENT_EMAIL="your-email-here@cloudinary.com"
+ZENDESK_CLIENT_API_TOKEN="your-zendesk-api-token-here"
+
+
+
+

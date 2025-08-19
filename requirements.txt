@@ -1,0 +1,15 @@
+flask
+apscheduler
+requests
+boto3
+urllib3
+openai
+jwt
+colorama
+pytest
+six
+pymysql
+gspread
+pandas
+mysql-connector-python
+python-dotenv
