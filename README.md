@@ -1,9 +1,7 @@
 # Setup - devsupport-poc-hackathon
 
 ### Use python environment
-
-> source myenv/bin/activate
-
+* Create the python virtual environment
 
 
 ### Install all packages
