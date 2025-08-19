@@ -2,13 +2,13 @@
 
 ### Use python environment
 
-source myenv/bin/activate
+> source myenv/bin/activate
 
 
 
 ### Install all packages
 
-pip install -r requirements.txt
+> pip install -r requirements.txt
 
 
 
