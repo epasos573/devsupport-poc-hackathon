@@ -14,7 +14,7 @@
 ### Notes
 
 * myenv - Python Virtual Enviroment
-* env - for all credentials and parameter
+* env - for all credentials and parameter (rename env-sample to .env)
 * main.py - for scheduler and flask app (endpoints)
 * kbase_chklist_controller.py - for the PoC implementations
 
