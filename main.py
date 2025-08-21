@@ -1,7 +1,8 @@
 import os
 import logging
 import datetime
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify, abort
+import os, requests
 from apscheduler.schedulers.background import BackgroundScheduler
 from dotenv import load_dotenv
 
@@ -94,11 +95,39 @@ def status():
         "jobs": jobs
     })
 
+# Environment config (set these before running)
+SITE   = "https://cloudinary.atlassian.net/wiki"  # <-- keep /wiki
+EMAIL  = "thomas.gurung@cloudinary.com"
+TOKEN  = ""
 
+@app.post("/update/<page_id>")
+def update_page(page_id):
+    data = request.get_json(silent=True) or {}
+    html = data.get("html")
+    if not (SITE and EMAIL and TOKEN and html):
+        abort(400, "Need CONFLUENCE_SITE/EMAIL/TOKEN env vars and JSON body with 'html'.")
 
+    # 1) Get current title & version
+    g = requests.get(f"{SITE}/api/v2/pages/{page_id}",
+                     params={"body-format": "storage"},
+                     auth=(EMAIL, TOKEN))
+    g.raise_for_status()
+    p = g.json()
+    title = p["title"]
+    ver   = p["version"]["number"]
 
-
-
+    # 2) Update with new HTML (storage format) and incremented version
+    payload = {
+        "id": str(page_id),
+        "status": "current",
+        "title": title,
+        "body": {"representation": "storage", "value": html},
+        "version": {"number": ver + 1, "message": "update via Flask"}
+    }
+    u = requests.put(f"{SITE}/api/v2/pages/{page_id}",
+                     json=payload, auth=(EMAIL, TOKEN))
+    u.raise_for_status()
+    return jsonify({"id": page_id, "version": u.json().get("version", {}).get("number")})
 
 
 # ---------------------------
