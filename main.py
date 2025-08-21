@@ -148,6 +148,14 @@ def process_zendesk():
 
 
 
+# ---------------------------
+@app.route('/demo/usecases', methods=['GET'])
+def process_demo_workflow():
+    """Calls the KbaseChkListController method"""
+    result = kbase_controller.process_demo_workflow()
+    return jsonify(result)
+
+
 
 
 
